@@ -28,8 +28,6 @@ export default function ThemeProvider ({ children }: {
     handleThemeChange()
   }, [mode])
 
-  console.log('mode', mode)
-
   return (
     <ThemeContext.Provider value={{ mode, setMode }}>
       {children}

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 interface ThemeContextType {
   mode: string
@@ -14,19 +14,21 @@ export default function ThemeProvider ({ children }: {
 }): React.JSX.Element {
   const [mode, setMode] = useState('')
 
-  /* const handleThemeChange = (): void => {
-    if (mode === 'dark') {
-      setMode('light')
-      document.documentElement.classList.add('light')
-    } else {
+  const handleThemeChange = (): void => {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       setMode('dark')
       document.documentElement.classList.add('dark')
+    } else {
+      setMode('light')
+      document.documentElement.classList.remove('dark')
     }
   }
 
   useEffect(() => {
     handleThemeChange()
-  }, [mode]) */
+  }, [mode])
+
+  console.log('mode', mode)
 
   return (
     <ThemeContext.Provider value={{ mode, setMode }}>

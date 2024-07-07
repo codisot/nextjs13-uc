@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import Theme from './theme'
+import MobileNav from './mobile-nav'
+import GlobalSearch from '../search/global-search'
 
 export default function Navbar (): React.JSX.Element {
   return (
@@ -16,7 +18,8 @@ export default function Navbar (): React.JSX.Element {
         />
         <p className='h2-bold font-spaceGrotesk text-dark-100 dark:text-light-900 max-sm:hidden'>U <span className='text-primary-500'>C</span></p>
       </Link>
-      GlobalSearch
+
+      <GlobalSearch />
 
       <div className='flex-between gap-5'>
         <Theme />
@@ -32,7 +35,7 @@ export default function Navbar (): React.JSX.Element {
             }}
           />
         </SignedIn>
-        MobileNav
+        <MobileNav />
       </div>
     </nav>
   )

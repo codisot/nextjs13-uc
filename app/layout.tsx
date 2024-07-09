@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Space_Grotesk } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import {
   ClerkProvider
@@ -11,11 +11,11 @@ const inter = Inter({
   weight: ['100', '200', '300', '400', '500', '600', '800', '900'],
   variable: '--font-inter'
 })
-const spaceGrotesk = Space_Grotesk({
+/* const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
   variable: '--font-spaceGrotesk'
-})
+}) */
 
 export const metadata: Metadata = {
   title: 'UC',
@@ -33,7 +33,7 @@ export default function RootLayout ({
   return (
 
     <html lang='en'>
-      <body className={`${inter.className} ${spaceGrotesk.className}`}>
+      <body className={`${inter.className}`}>
         <ClerkProvider
           appearance={{
             elements: {

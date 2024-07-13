@@ -22,15 +22,15 @@ const questions = [
     },
     upvotes: 10,
     views: 100,
-    answers: [{}], // Assuming answers are objects, add as needed
+    answers: [], // Assuming answers are objects, add as needed
     createdAt: new Date('2021-09-01T12:00:00.000Z')
   },
   {
     _id: '2',
     title: 'HTML',
     tags: [
-      { _id: '1', name: 'python' },
-      { _id: '2', name: 'sql' }
+      { _id: '1', name: 'HTML' },
+      { _id: '2', name: 'CSS' }
     ],
     author: {
       _id: '1',

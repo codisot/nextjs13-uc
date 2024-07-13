@@ -4,17 +4,17 @@ import React from 'react'
 import RenderTag from './render-tag'
 
 const hotQuestions = [
-  { _id: 1, title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ex vel voluptas.' },
-  { _id: 2, title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ex vel voluptas.' },
-  { _id: 3, title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ex vel voluptas.' },
-  { _id: 4, title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ex vel voluptas.' }
+  { _id: '1', title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ex vel voluptas.' },
+  { _id: '2', title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ex vel voluptas.' },
+  { _id: '3', title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ex vel voluptas.' },
+  { _id: '4', title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit ex vel voluptas.' }
 ]
 
 const popularTags = [
-  { _id: 1, name: 'JS', totalQuestions: 5 },
-  { _id: 1, name: 'react', totalQuestions: 5 },
-  { _id: 1, name: 'next', totalQuestions: 5 },
-  { _id: 1, name: 'vue', totalQuestions: 5 }
+  { _id: '1', name: 'JS', totalQuestions: 5 },
+  { _id: '2', name: 'react', totalQuestions: 5 },
+  { _id: '3', name: 'next', totalQuestions: 5 },
+  { _id: '4', name: 'vue', totalQuestions: 5 }
 ]
 
 export default function RightSidebar (): React.JSX.Element {

@@ -15,8 +15,12 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { QuestionsSchema } from '@/lib/validations'
+import { useRef } from 'react'
+import { Editor } from '@tinymce/tinymce-react'
 
 export default function Question (): React.JSX.Element {
+  const editorRef = useRef(null)
+
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
@@ -37,12 +41,54 @@ export default function Question (): React.JSX.Element {
       <form onSubmit={form.handleSubmit(onSubmit)} className='flex w-full flex-col gap-10'>
         <FormField
           control={form.control}
-          name='explanation'
+          name='title'
+          render={({ field }) => (
+            <FormItem className='flex w-full flex-col'>
+              <FormLabel className='paragraph-semibold text-dark400_light800'>Question Title <span className='text-primary-500'>*</span></FormLabel>
+              <FormControl className='mt-3.5'>
+
+                <Input
+                  className='no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border'
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription className='body-regular mt-2.5 text-light-500'>
+                Be specific and imagine you&apos;re asking a question to another person.
+              </FormDescription>
+
+              <FormMessage className='text-red-500' />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='explanations'
           render={({ field }) => (
             <FormItem className='flex w-full flex-col gap-3'>
               <FormLabel className='paragraph-semibold text-dark400_light800'>Detailed explanation of your problem <span className='text-primary-500'>*</span></FormLabel>
               <FormControl className='mt-3.5'>
-                {/* TODO: add an editor component */}
+                <Editor
+                  apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+                  onInit={(_evt, editor) => {
+                    // @ts-expect-error
+                    editorRef.current = editor
+                  }}
+                  initialValue=''
+                  init={{
+                    height: 350,
+                    menubar: false,
+                    plugins: [
+                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                      'anchor', 'searchreplace', 'visualblocks', 'codesample', 'fullscreen',
+                      'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                    ],
+                    toolbar:
+                      'undo redo | blocks | ' +
+                      'codesample | bold italic forecolor | alignleft aligncenter | ' +
+                      'alignright alignjustify | bullist numlist',
+                    content_style: 'body { font-family:Inter; font-size:16px }'
+                  }}
+                />
               </FormControl>
               <FormDescription className='body-regular mt-2.5 text-light-500'>
                 Introduce the problem and expand on what you put in the title. Minimum 20 characters.
@@ -74,27 +120,7 @@ export default function Question (): React.JSX.Element {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name='title'
-          render={({ field }) => (
-            <FormItem className='flex w-full flex-col'>
-              <FormLabel className='paragraph-semibold text-dark400_light800'>Question Title <span className='text-primary-500'>*</span></FormLabel>
-              <FormControl className='mt-3.5'>
 
-                <Input
-                  className='no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border'
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription className='body-regular mt-2.5 text-light-500'>
-                Be specific and imagine you&apos;re asking a question to another person.
-              </FormDescription>
-
-              <FormMessage className='text-red-500' />
-            </FormItem>
-          )}
-        />
         <Button type='submit'>Submit</Button>
       </form>
     </Form>

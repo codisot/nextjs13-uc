@@ -28,7 +28,6 @@ export default function LocalSearchBar ({ route, iconPosition, imgSrc, otherClas
         type='text'
         placeholder={placeHolder}
         value=''
-        onChange={() => {}}
         className='paragraph-regular no-focus placeholder background-light800_darkgradient border-none shadow-none outline-none'
       />
 

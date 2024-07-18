@@ -20,12 +20,19 @@ import { Editor } from '@tinymce/tinymce-react'
 import { Badge } from '../ui/badge'
 import Image from 'next/image'
 import { createQuestion } from '@/lib/actions/question.action'
+import { usePathname, useRouter } from 'next/navigation'
 
 const type: any = 'create'
 
-export default function Question (): React.JSX.Element {
+interface Props {
+  mongoUserId: string
+}
+
+export default function Question ({ mongoUserId }: Props): React.JSX.Element {
   const editorRef = useRef(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -36,10 +43,17 @@ export default function Question (): React.JSX.Element {
     }
   })
 
-  async function onSubmit (values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit (values: z.infer<typeof QuestionsSchema>): Promise<void> {
     setIsSubmitting(true)
     try {
-      await createQuestion({})
+      await createQuestion({
+        title: values.title,
+        content: values.explanations,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId)
+      })
+
+      router.push('/')
     } catch (error) {
 
     } finally {

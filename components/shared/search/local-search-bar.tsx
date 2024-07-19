@@ -27,7 +27,6 @@ export default function LocalSearchBar ({ route, iconPosition, imgSrc, otherClas
       <Input
         type='text'
         placeholder={placeHolder}
-        value=''
         className='paragraph-regular no-focus placeholder background-light800_darkgradient border-none shadow-none outline-none'
       />
 

@@ -50,7 +50,8 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
         title: values.title,
         content: values.explanations,
         tags: values.tags,
-        author: JSON.parse(mongoUserId)
+        author: JSON.parse(mongoUserId),
+        path: pathname
       })
 
       router.push('/')

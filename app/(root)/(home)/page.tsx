@@ -5,46 +5,12 @@ import NoResult from '@/components/shared/no-result'
 import LocalSearchBar from '@/components/shared/search/local-search-bar'
 import { Button } from '@/components/ui/button'
 import { HomePageFilters } from '@/constants/filters'
+import { getQuestions } from '@/lib/actions/question.action'
 import Link from 'next/link'
 
-const questions = [
-  {
-    _id: '1',
-    title: 'Cascading',
-    tags: [
-      { _id: '1', name: 'python' },
-      { _id: '2', name: 'sql' }
-    ],
-    author: {
-      _id: '1',
-      name: 'John',
-      picture: 'https://example.com/john.jpg'
-    },
-    upvotes: 10,
-    views: 100,
-    answers: [], // Assuming answers are objects, add as needed
-    createdAt: new Date('2021-09-01T12:00:00.000Z')
-  },
-  {
-    _id: '2',
-    title: 'HTML',
-    tags: [
-      { _id: '1', name: 'HTML' },
-      { _id: '2', name: 'CSS' }
-    ],
-    author: {
-      _id: '1',
-      name: 'John',
-      picture: 'https://example.com/john.jpg'
-    },
-    upvotes: 10,
-    views: 100,
-    answers: [{}], // Assuming answers are objects, add as needed
-    createdAt: new Date('2021-09-01T12:00:00.000Z')
-  }
-]
+export default async function Home (): Promise<JSX.Element> {
+  const result = await getQuestions({})
 
-export default function Home (): JSX.Element {
   return (
     <>
       <div className='flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center'>
@@ -74,8 +40,9 @@ export default function Home (): JSX.Element {
 
       <div className='mt-10 flex w-full flex-col gap-6'>
         {
-          questions.length > 0
-            ? questions.map((question) => (
+          result.questions.length > 0
+            ? result.questions.map((question) => (
+
               <QuestionCards
                 key={question._id}
                 _id={question._id}

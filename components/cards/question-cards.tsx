@@ -19,7 +19,7 @@ interface QuestionProps {
   upvotes: number
   views: number
   answers: object[]
-  createdAt: Date
+  createdAt: Date | string
 }
 
 export default function QuestionCards (

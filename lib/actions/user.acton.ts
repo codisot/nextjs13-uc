@@ -1,11 +1,11 @@
 'use server'
 
-import User, { IUser } from '@/database/user.model'
+import User from '@/database/user.model'
 import { connectToDatabase } from '../mongoose'
 
-export async function getUserById (params: any): Promise<IUser | null> {
+export async function getUserById (params: any): Promise<any> {
   try {
-    connectToDatabase()
+    await connectToDatabase()
 
     const { userId } = params
 

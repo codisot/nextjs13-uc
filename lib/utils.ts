@@ -5,32 +5,11 @@ export function cn (...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs))
 }
 
-export const getTimestamp = (createdAt: Date | string): string => {
-  /* console.log('Received createdAt:', createdAt) */
+export const getTimestamp = (createdAt: Date): string => {
   const now = new Date()
-  let date: Date
+  const timeDifference = now.getTime() - createdAt.getTime()
 
-  if (typeof createdAt === 'string') {
-    date = new Date(createdAt)
-    /* console.log('Converted string to Date:', date) */ // Mensaje de depuración
-  } else if (createdAt instanceof Date) {
-    date = createdAt
-    /* console.log('Received Date instance:', date) */ // Mensaje de depuración
-  } else if (createdAt._seconds) {
-    // Si `createdAt` es un objeto con una propiedad `_seconds` (como un timestamp de Firestore)
-    date = new Date(createdAt._seconds * 1000)
-    /* console.log('Converted Firestore timestamp to Date:', date) */ // Mensaje de depuración
-  } else {
-    console.error('Invalid type for createdAt:', typeof createdAt, createdAt) // Mensaje de error con detalles del objeto
-    return 'Invalid date'
-  }
-
-  if (isNaN(date.getTime())) {
-    console.error('Date is invalid:', date) // Mensaje de error
-    return 'Invalid date'
-  }
-  const timeDifference = now.getTime() - date.getTime()
-
+  // Define time intervals in milliseconds
   const minute = 60 * 1000
   const hour = 60 * minute
   const day = 24 * hour

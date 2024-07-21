@@ -2,24 +2,29 @@ import mongoose from 'mongoose'
 
 let isConnected: boolean = false
 
-export const connectToDatabase = async () => {
+export const connectToDatabase = async (): Promise<void> => {
   mongoose.set('strictQuery', true)
 
-  if (!process.env.MONGODB_URL) {
-    return console.log('missing MONGODB_URL')
+  const mongoDbUrl = process.env.MONGODB_URL
+
+  if (mongoDbUrl === undefined || mongoDbUrl === '') {
+    console.log('MISSING MONGODB_URL')
+    return
   }
 
   if (isConnected) {
-    console.log('MONGODB is already connected')
+    return console.log('MongoDB is already connected')
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URL, {
+    await mongoose.connect(mongoDbUrl, {
       dbName: 'UC'
     })
+
     isConnected = true
-    console.log('MONGODB is connected')
+
+    console.log('MongoDB is connected')
   } catch (error) {
-    console.log('MONGODB conection failed', error)
+    console.log('MongoDB connection failed', error)
   }
 }

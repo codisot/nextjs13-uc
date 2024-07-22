@@ -27,6 +27,11 @@ interface Props {
   mongoUserId: string
 }
 
+interface Field {
+  name: string
+  value: string[]
+}
+
 export default function Question ({ mongoUserId }: Props): React.JSX.Element {
   const editorRef = useRef(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -68,7 +73,7 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
     }
   }
 
-  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, field): void => {
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, field: Field): void => {
     if (e.key === 'Enter' && field.name === 'tags') {
       e.preventDefault()
 
@@ -89,12 +94,14 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
           form.clearErrors('tags')
         }
       } else {
-        form.trigger()
+        form.trigger().catch((error) => {
+          console.error('Error triggering form validation:', error)
+        })
       }
     }
   }
 
-  const handleTagRemove = (tag: string, field: any) => {
+  const handleTagRemove = (tag: string, field: Field): void => {
     const newTags = field.value.filter((t: string) => t !== tag)
 
     form.setValue('tags', newTags)
@@ -102,7 +109,14 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='flex w-full flex-col gap-10'>
+      <form
+        /* eslint-disable @typescript-eslint/no-misused-promises */
+        onSubmit={
+          form.handleSubmit(onSubmit)
+        }
+        /* eslint-enable @typescript-eslint/no-misused-promises */
+        className='flex w-full flex-col gap-10'
+      >
         <FormField
           control={form.control}
           name='title'
@@ -135,7 +149,7 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
                   // @ts-expect-error
                     editorRef.current = editor
                   }}
-                  onBlur={field.onBlur}
+                  handleBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
                   initialValue=''
                   init={{

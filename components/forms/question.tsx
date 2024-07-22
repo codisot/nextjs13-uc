@@ -143,7 +143,7 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
                   // @ts-expect-error
                     editorRef.current = editor
                   }}
-                  handleBlur={field.onBlur}
+                  onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
                   initialValue=''
                   init={{

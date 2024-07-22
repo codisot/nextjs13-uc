@@ -53,9 +53,6 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
     setIsSubmitting(true)
 
     try {
-      // make an async call to your API -> create a question
-      // contain all form data
-
       await createQuestion({
         title: values.title,
         content: values.explanation,
@@ -64,10 +61,9 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
         path: pathname
       })
 
-      // navigate to home page
       router.push('/')
     } catch (error) {
-
+      console.error('Error creating question:', error)
     } finally {
       setIsSubmitting(false)
     }
@@ -110,11 +106,9 @@ export default function Question ({ mongoUserId }: Props): React.JSX.Element {
   return (
     <Form {...form}>
       <form
-        /* eslint-disable @typescript-eslint/no-misused-promises */
         onSubmit={
           form.handleSubmit(onSubmit)
         }
-        /* eslint-enable @typescript-eslint/no-misused-promises */
         className='flex w-full flex-col gap-10'
       >
         <FormField

@@ -1,5 +1,6 @@
 import Question from '@/components/forms/question'
 import { getUserById } from '@/lib/actions/user.acton'
+import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
@@ -8,9 +9,8 @@ function isValidUserId (userId: string | undefined | null): boolean {
 }
 
 export default async function page (): Promise<React.JSX.Element> {
-  // const { userId } = auth()
+  const { userId } = auth()
 
-  const userId = 'clerk12345'
   if (!isValidUserId(userId)) {
     redirect('/sign-in')
   }
